@@ -1,0 +1,22 @@
+# Build artifacts
+build/
+*.exe
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+
+# Temporary files
+*.bin
+*.tmp
+*.temp
+*_output.txt
+*_compressed.bin
+
+# IDE files
+.vscode/
+.idea/
+*.suo
+*.user 
