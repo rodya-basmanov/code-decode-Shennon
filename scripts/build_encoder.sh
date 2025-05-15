@@ -11,4 +11,4 @@ g++ -std=c++11 -o build/encoder \
     src/io/file_handler.cpp \
     -I./src
 
-echo "Encoder compiled successfully. Binary is located at build/encoder" 
+echo "Encoder compiled successfully" 

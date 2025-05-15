@@ -13,11 +13,9 @@ void FrequencyMap::build_from_data(const std::vector<unsigned char>& data) {
     for (auto const& pair : counts) {
         frequencies.push_back({pair.first, pair.second});
     }
-    // Sort by frequency for Shannon algorithm
     std::sort(frequencies.begin(), frequencies.end());
 }
 
-// Recursive helper function for building Shannon-Fano codes
 void assign_codes_recursive(std::vector<SymbolFrequency>& symbols, 
                             std::map<unsigned char, std::string>& codes,
                             const std::string& current_code) {
@@ -26,11 +24,10 @@ void assign_codes_recursive(std::vector<SymbolFrequency>& symbols,
     }
 
     if (symbols.size() == 1) {
-        codes[symbols[0].symbol] = current_code.empty() ? "0" : current_code; // For single symbol, use '0' or current code if not empty
+        codes[symbols[0].symbol] = current_code.empty() ? "0" : current_code;
         return;
     }
 
-    // Find split point to make sums of frequencies as close as possible
     long long total_frequency = 0;
     for(const auto& sf : symbols) {
         total_frequency += sf.frequency;
@@ -59,12 +56,10 @@ void assign_codes_recursive(std::vector<SymbolFrequency>& symbols,
 std::map<unsigned char, std::string> FrequencyMap::generate_shannon_codes() {
     std::map<unsigned char, std::string> codes_map;
     if (frequencies.empty()) {
-        return codes_map; // Nothing to encode
+        return codes_map;
     }
     
-    // Copy since assign_codes_recursive might change order or structure
     std::vector<SymbolFrequency> sorted_symbols = frequencies; 
-    // Ensure sorted by descending frequency
     std::sort(sorted_symbols.begin(), sorted_symbols.end(), [](const SymbolFrequency& a, const SymbolFrequency& b){
         return a.frequency > b.frequency;
     });
@@ -79,8 +74,6 @@ bool FrequencyMap::save_to_file(const std::string& file_path, const std::map<uns
         return false;
     }
 
-    // Format: [number of entries (int)]
-    // Then for each entry: [symbol (char)] [code length (int)] [code (string)]
     int num_entries = codes.size();
     out_file.write(reinterpret_cast<const char*>(&num_entries), sizeof(num_entries));
 
@@ -101,12 +94,12 @@ std::map<unsigned char, std::string> FrequencyMap::load_from_file(const std::str
     std::map<unsigned char, std::string> codes_map;
     std::ifstream in_file(file_path, std::ios::binary);
     if (!in_file) {
-        return codes_map; // Return empty map on error
+        return codes_map;
     }
 
     int num_entries;
     in_file.read(reinterpret_cast<char*>(&num_entries), sizeof(num_entries));
-    if (in_file.gcount() != sizeof(num_entries)) return codes_map; // Read error
+    if (in_file.gcount() != sizeof(num_entries)) return codes_map;
 
     for (int i = 0; i < num_entries; ++i) {
         unsigned char symbol;
@@ -117,7 +110,7 @@ std::map<unsigned char, std::string> FrequencyMap::load_from_file(const std::str
         in_file.read(reinterpret_cast<char*>(&code_len), sizeof(code_len));
         if (in_file.gcount() != sizeof(code_len)) return codes_map; 
 
-        if (code_len < 0 || code_len > 256) { // Check for reasonable code length
+        if (code_len < 0 || code_len > 256) {
             return codes_map;
         }
 

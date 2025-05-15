@@ -17,8 +17,7 @@ g++ -std=c++11 -o build/test_runner \
 
 # Check if compilation succeeded
 if [ $? -ne 0 ]; then
-    echo "Failed to compile tests. Please make sure Google Test is installed."
-    echo "You can install it with: sudo apt-get install libgtest-dev"
+    echo "Failed to compile tests"
     exit 1
 fi
 
@@ -29,9 +28,9 @@ fi
 exit_code=$?
 
 if [ $exit_code -eq 0 ]; then
-    echo "All tests passed successfully!"
+    echo "All tests passed"
 else
-    echo "Some tests failed. Please check the output above for details."
+    echo "Some tests failed"
 fi
 
 exit $exit_code 

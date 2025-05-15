@@ -11,4 +11,4 @@ g++ -std=c++11 -o build/decoder \
     src/io/file_handler.cpp \
     -I./src
 
-echo "Decoder compiled successfully. Binary is located at build/decoder" 
+echo "Decoder compiled successfully" 

@@ -1,0 +1,38 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main, 3.1-coder, 3.2-decoder, 3.3-tests ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y g++ libgtest-dev cmake
+        cd /usr/src/gtest
+        sudo cmake CMakeLists.txt
+        sudo make
+        sudo cp lib/*.a /usr/lib
+
+    - name: Build Encoder
+      run: |
+        chmod +x scripts/build_encoder.sh
+        ./scripts/build_encoder.sh
+
+    - name: Build Decoder
+      run: |
+        chmod +x scripts/build_decoder.sh
+        ./scripts/build_decoder.sh
+
+    - name: Run Tests
+      run: |
+        chmod +x scripts/run_tests.sh
+        ./scripts/run_tests.sh 
