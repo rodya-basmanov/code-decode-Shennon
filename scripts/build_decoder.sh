@@ -4,7 +4,7 @@
 mkdir -p build
 
 # Compile the decoder
-g++ -std=c++11 -o build/decoder \
+g++ -std=c++14 -o build/decoder \
     src/app/decoder_entry.cpp \
     src/core/shannon_logic.cpp \
     src/data_structures/frequency_map.cpp \

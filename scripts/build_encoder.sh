@@ -4,7 +4,7 @@
 mkdir -p build
 
 # Compile the encoder
-g++ -std=c++11 -o build/encoder \
+g++ -std=c++14 -o build/encoder \
     src/app/encoder_entry.cpp \
     src/core/shannon_logic.cpp \
     src/data_structures/frequency_map.cpp \

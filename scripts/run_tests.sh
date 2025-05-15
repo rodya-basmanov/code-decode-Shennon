@@ -4,7 +4,7 @@
 mkdir -p build
 
 # Compile the Google Test suite
-g++ -std=c++11 -o build/test_runner \
+g++ -std=c++14 -o build/test_runner \
     tests.cpp \
     src/core/shannon_logic.cpp \
     src/data_structures/frequency_map.cpp \
