@@ -3,9 +3,6 @@
 # Create build directory if it doesn't exist
 mkdir -p build
 
-# Create test data directory if it doesn't exist
-mkdir -p test_data
-
 # Compile the Google Test suite
 g++ -std=c++11 -o build/test_runner \
     tests.cpp \

@@ -48,20 +48,20 @@ class ShannonTest : public ::testing::Test {
 protected:
     void SetUp() override {
         // Create test directories if they don't exist
-        system("mkdir -p test_data");
+        system("mkdir -p build");
     }
     
     void TearDown() override {
         // Clean up test files
-        system("rm -rf test_data/*");
+        system("rm -f build/*_test_*");
     }
     
     // Test encode and decode with given data
     bool testEncodeDecode(const std::vector<unsigned char>& test_data, const std::string& test_name) {
-        std::string input_file = "test_data/" + test_name + "_input.bin";
-        std::string compressed_file = "test_data/" + test_name + "_compressed.bin";
-        std::string dict_file = "test_data/" + test_name + "_dict.bin";
-        std::string output_file = "test_data/" + test_name + "_output.bin";
+        std::string input_file = "build/" + test_name + "_input.bin";
+        std::string compressed_file = "build/" + test_name + "_compressed.bin";
+        std::string dict_file = "build/" + test_name + "_dict.bin";
+        std::string output_file = "build/" + test_name + "_output.bin";
         
         // Create test file
         EXPECT_TRUE(create_test_file(input_file, test_data));
@@ -132,7 +132,7 @@ TEST_F(ShannonTest, DictionaryTest) {
     EXPECT_FALSE(codes.empty());
     
     // Save and load dictionary
-    std::string dict_file = "test_data/dict_test.bin";
+    std::string dict_file = "build/dict_test.bin";
     EXPECT_TRUE(freq_map.save_to_file(dict_file, codes));
     
     std::map<unsigned char, std::string> loaded_codes = freq_map.load_from_file(dict_file);

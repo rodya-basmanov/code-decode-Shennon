@@ -10,7 +10,7 @@ This project implements the Shannon-Fano coding algorithm for data compression.
   - `data_structures/` - Data structures for dictionary storage
   - `io/` - File input/output handlers
 - `scripts/` - Build and run scripts
-- `test_data/` - Directory for test files
+- `build/` - Compiled binaries
 
 ## Components
 
